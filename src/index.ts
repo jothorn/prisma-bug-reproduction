@@ -1,7 +1,11 @@
+import { PrismaLibSql } from "@prisma/adapter-libsql";
 import { PrismaClient } from "@prisma/client";
 import { brokenQuery1, brokenQuery2, brokenQuery3 } from "@prisma/client/sql";
 
-const prisma = new PrismaClient();
+const adapter = new PrismaLibSql({
+  url: "file:./prisma/database.db",
+});
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   await prisma.user.create({
